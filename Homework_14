@@ -1,0 +1,43 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+// Функция для выполнения автодополнения
+std::vector<std::string> autocomplete(const std::string& word, const std::vector<std::string>& dictionary) {
+    std::vector<std::string> suggestions;
+
+    // Проходим по каждому слову в словаре
+    for (const std::string& entry : dictionary) {
+        // Проверяем, начинается ли текущее слово с введенного слова
+        if (entry.rfind(word, 0) == 0) {
+            suggestions.push_back(entry);
+        }
+    }
+
+    return suggestions;
+}
+
+int main() {
+    // Изначально заданный словарь
+    std::vector<std::string> dictionary = { "apple", "banana", "application", "bee", "cat", "car", "dog" };
+
+    // Вводим слово, для которого выполняется автодополнение
+    std::cout << "Введите слово: ";
+    std::string word;
+    std::cin >> word;
+
+    // Выполняем автодополнение и выводим результат
+    std::vector<std::string> suggestions = autocomplete(word, dictionary);
+
+    if (suggestions.empty()) {
+        std::cout << "Нет предложений для автодополнения." << std::endl;
+    } else {
+        std::cout << "Предложения для автодополнения:" << std::endl;
+        for (const std::string& suggestion : suggestions) {
+            std::cout << suggestion << std::endl;
+        }
+    }
+
+    return 0;
+}
